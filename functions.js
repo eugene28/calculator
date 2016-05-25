@@ -51,9 +51,20 @@ function operatorsErrorsManagingAndCalculation(str) {
 
     } else {
 
+  //if there are 2 "-" operators in the string, they replaced by "+"
+    if (str.match(/[-]{2,}/)) {
+      str = str.replace("--","+");
+    }
+
     expr = eval(str);
     $('#display').val(expr);
 
+  }
 }
+
+function operatorReplacement(id) {
+
+  str = $('#display').val();
+  $('#display').val(str.slice(0, -1)+$('#'+id).val());
 
 }
