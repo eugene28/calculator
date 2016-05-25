@@ -1,35 +1,3 @@
-function insertValues(id) {
-
-  $('#display').val($('#display').val()+$('#'+id).val());
-
-}
-
-function checkResultKeyPressed(flag) {
-
-  // if "=" was pressed before, than clear the field
-  if (res_flag == true) {
-    $('#display').val('');
-
-    //set flag to false again to prevent wrong field clearing
-    return res_flag = false;
-   }
-
-}
-
-function operatorSelectedIndicator() {
-
-  oper_flag = true;
-  $('input.oper-but').addClass('tmp-class');
-  $('input').removeClass('oper-but');
-
-}
-
-function operatorUnselectedIndicator() {
-  oper_flag = false;
-  $('input.tmp-class').addClass('oper-but');
-  $('input').removeClass('tmp-class');
-}
-
 $(document).ready(function () {
 
   // simple boolean flag to indicate "=" pressing
@@ -42,8 +10,12 @@ $(document).ready(function () {
 
   // "0-9" key pressed
   $( '.calc-but' ).click(function() {
+
+    //check status of "=" button (was it pressed before?)
     checkResultKeyPressed(res_flag);
     insertValues(this.id);
+
+    //return funcionality to operator buttons 
     operatorUnselectedIndicator();
 
   });
@@ -51,7 +23,11 @@ $(document).ready(function () {
   // "+","-","*","/","." key pressed
   $( '.oper-but' ).click(function() {
   if (oper_flag == false) {
+
+    //disable operator buttons funcionality
     operatorSelectedIndicator();
+
+    //check status of "=" button (was it pressed before?)
     checkResultKeyPressed(res_flag);
     insertValues(this.id);
   } else {
@@ -62,19 +38,10 @@ $(document).ready(function () {
   });
 
   // "=" key pressed
-    $( '#res' ).click(function() {
+  $( '#res' ).click(function() {
 
-    exprStr = $('#display').val();
-
-
-    if (!exprStr.charAt(exprStr.length-1).match(/[0-9]/) ||
-  !exprStr.charAt(0).match(/[-0-9]/) ) {
-        $('#display').val('Error');
-    } else {
-
-      expr = eval(exprStr);
-      $('#display').val(expr);
-  }
+  exprStr = $('#display').val();
+  operatorsErrorsManagingAndCalculation(exprStr);
 
   //it's indicate that "=" was pressed
   res_flag = true;
