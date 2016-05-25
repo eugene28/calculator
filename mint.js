@@ -66,7 +66,9 @@ $(document).ready(function () {
 
     exprStr = $('#display').val();
 
-    if (!exprStr.charAt(exprStr.length-1).match(/[0-9]/) ) {
+
+    if (!exprStr.charAt(exprStr.length-1).match(/[0-9]/) ||
+  !exprStr.charAt(0).match(/[-0-9]/) ) {
         $('#display').val('Error');
     } else {
 
