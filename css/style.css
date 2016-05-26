@@ -1,0 +1,91 @@
+body {
+  background-color: #364242;
+
+}
+input {
+  font: bold 18px Arial;
+  color: #364242;
+  }
+
+#display {
+  background-color: #82CFCF;
+  width: 200px;
+  height: 36px;
+  padding: 0 10px;
+  text-align: left;
+  border: 2px solid #364242;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+form {
+  width: 225px;
+  height: 305px;
+  padding: 15px 10px;
+  background: #256B6B;
+  margin: 15% auto;
+  border: 2px solid #364242;
+  border-radius: 10px;
+  box-shadow: 0 0 150px #009595;
+}
+
+.operators {
+  color: #364242;
+  float: right;
+  padding: 2px 0;
+}
+
+div.operators > input {
+  margin: 3px 0 6px 0;
+  display: block;
+  width: 40px;
+  padding: 5px 0 6px 0;
+  text-align: center;
+  border: 2px solid #364242;
+  border-radius: 5px;
+}
+
+div.operators > input {
+
+  background-color: green;
+}
+
+.numbers {
+  color: #364242;
+  width: 180px;
+  float: left;
+}
+
+div.numbers > input {
+  width: 55px;
+  padding: 9px 0;
+  text-align: center;
+  border: 2px solid #364242;
+  border-radius: 5px;
+}
+
+input:not(#display):hover {
+  background-color: #009595;
+}
+
+input:not(#display) {
+  margin: 3px 0 6px 0;
+  background-color: #82CFCF;
+  outline:none;
+  transition: 0.2s;
+}
+
+#res {
+  display: inline-block;
+  margin-top: -7px;
+  width: 175px;
+  padding: 9px 0 8px 0;
+  text-align: center;
+  border: 2px solid #364242;
+  border-radius: 5px;
+  clear:both;
+}
+
+#num0 {
+  width: 175px;
+}

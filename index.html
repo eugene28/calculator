@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Calculator</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
@@ -10,32 +11,37 @@
   <form>
     <input type="text" id="display" readonly size="12" >
     <br>
-    <input type="button" id="1" class="calc-but" value="1">
-    <input type="button" id="2" class="calc-but" value="2">
-    <input type="button" id="3" class="calc-but" value="3">
+  <div class="numbers">
+    <input type="button" id="num1" class="calc-but" value="1">
+    <input type="button" id="num2" class="calc-but" value="2">
+    <input type="button" id="num3" class="calc-but" value="3">
     <br>
-    <input type="button" id="4" class="calc-but" value="4">
-    <input type="button" id="5" class="calc-but" value="5">
-    <input type="button" id="6" class="calc-but" value="6">
+    <input type="button" id="num4" class="calc-but" value="4">
+    <input type="button" id="num5" class="calc-but" value="5">
+    <input type="button" id="num6" class="calc-but" value="6">
     <br>
-    <input type="button" id="7" class="calc-but" value="7">
-    <input type="button" id="8" class="calc-but" value="8">
-    <input type="button" id="9" class="calc-but" value="9">
-    <br>
-    <input type="button" id="dot" class="oper-but" value=".">
-    <input type="button" id="0" class="calc-but" value="0">
-    <input type="button" id="res" value="=">
-    <br>
+    <input type="button" id="num7" class="calc-but" value="7">
+    <input type="button" id="num8" class="calc-but" value="8">
+    <input type="button" id="num9" class="calc-but" value="9">
+    <input type="button" id="num0" class="calc-but" value="0">
+  </div>
+
+
+  <div class="operators">
+
+    <input type="reset" id="clear" value="C">
+    <input type="button" id="add" class="oper-but" value="+">
     <input type="button" id="sub" class="oper-but" value="-">
     <input type="button" id="mult" class="oper-but" value="*">
     <input type="button" id="divis" class="oper-but" value="/">
-    <br>
-    <input type="button" id="add" class="oper-but" value="+">
-    <input type="reset" id="clear" value="C">
+    <input type="button" id="dot" class="oper-but" value=".">
+
+</div>
+    <input type="button" id="res" value="=">
   </form>
 
 
-  <script src="functions.js"></script>
-  <script src="mint.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/mint.js"></script>
 </body>
 </html>
