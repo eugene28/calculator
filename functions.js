@@ -1,9 +1,17 @@
-function insertValues(id) {
+function insertValues(id, num_count) {
+
+  //if input values limit reached - throw Error, otherwise - display values
+  if (num_count>40) {
+
+    $('#display').val('Symbol\'s limit reached')
+
+  } else {
 
   //field value consist of it previous value and concatenate with the new one
   // which consisting in clicked button 'value' attr; button determined by id
   $('#display').val($('#display').val()+$('#'+id).val());
 
+  }
 }
 
 function checkResultButtonPressed(flag) {
@@ -17,16 +25,16 @@ function checkResultButtonPressed(flag) {
     return res_flag = false;
 
    }
-
 }
 
 function operatorSelectedIndicator() {
 
   //when operator button pressed, this function temporarily disable operator buttons
   //by adding a new class and remove previous until number buttons is pressed
-  oper_flag = true;
+
   $('input.oper-but').addClass('tmp-class');
   $('input').removeClass('oper-but');
+  return oper_flag = true;
 
 }
 
@@ -34,16 +42,17 @@ function operatorUnselectedIndicator() {
 
   //when number button pressed, this function returns fuctionality to operator
   //buttons
-  oper_flag = false;
+
   $('input.tmp-class').addClass('oper-but');
   $('input').removeClass('tmp-class');
+  return oper_flag = false;
 }
 
 function operatorsErrorsManagingAndCalculation(str) {
 
   //if the last or the first chars an operators (except "-" in 2nd case) or
   //division by 0 or incorrect number with many nulls at the beginning (002 etc)
-  //then through Error. Otherwise - convert string to expression and calculate it
+  //then throw Error. Otherwise - convert string to expression and calculate it
   if (!str.charAt(str.length-1).match(/[0-9]/) ||
       !str.charAt(0).match(/[-0-9]/) ||
       str.match(/\/[0]$/) ||
@@ -59,17 +68,38 @@ function operatorsErrorsManagingAndCalculation(str) {
     if (str.match(/[-]{2,}/)) {
       str = str.replace("--","+");
     }
-  //calculate string as a js code (expression)
-    expr = eval(str);
-    $('#display').val(expr);
 
+  //calculate string as a js code (expression)
+    var expr = eval(str);
+
+  //convert it back to str
+    var exprStr = ""+expr;
+
+  //if answer is float, then round the number
+    if (exprStr.match(/[.]/)) {
+
+      exprStr = ""+expr.toFixed(5);
+
+    }
+
+  // if answer length is to big - throw the exception, otherwise - display it
+    if (exprStr.length>15) {
+
+      $('#display').val('Overlimit number');
+
+    } else {
+
+    $('#display').val(exprStr);
+
+  }
   }
 }
 
 
 function operatorReplacement(id) {
 
-  str = $('#display').val();
+  var str = $('#display').val();
+
   //if operator button pressed, and the other operator button was pressed after it
   //then replace older one with the new one (to prevent multiple operators one
   //after another)
