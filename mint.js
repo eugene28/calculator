@@ -4,17 +4,16 @@ $(document).ready(function () {
   res_flag = false;
   //simple boolean flag to indicate "+","-","*","/","." pressing
   oper_flag = false;
-  //simple boolean flag to indicate "-" pressing
-  sub_flag = false;
 
   //cleaning the display field
   $('#display').val('');
 
   //when form is clearing - set all flags back to "false"
   $('#clear').click( function() {
+
     res_flag = false;
     oper_flag = false;
-    sub_flag = false;
+
   });
 
   // "0-9" button pressed
@@ -26,9 +25,6 @@ $(document).ready(function () {
 
     //return funcionality to operator buttons
     operatorUnselectedIndicator();
-
-    //disable "-" operator's flag
-    sub_flag=false;
 
   });
 
@@ -45,31 +41,35 @@ $(document).ready(function () {
 
       insertValues(this.id);
 
-      //if it "-" operator set sub_flag to true, otherwise set it to false
-      if (this.value == '-'){
-        sub_flag = true;
-      } else {
-        sub_flag = false;
-      }
-
     } else {
 
       str = $('#display').val();
       reg = /[0-9]/;
+      strLastChar = str.charAt(str.length-1);
+      strPreLastChar = str.charAt(str.length-2);
+
+
 
       //if it's "-" operator after another operator or in the beginning of the
       //string then insert it
       if (this.value == '-' &&
-      str.charAt(str.length-2).match(reg) &&
-      !str.charAt(str.length-1).match(reg) ) {
+      strPreLastChar.match(reg) &&
+      !strLastChar.match(reg) ) {
 
         insertValues(this.id);
       }
 
-      //if it's not an "=" operator and "-" wasn't pressed, then make replacement
-      if (this.value != '-' && sub_flag != true) {
-        operatorReplacement(this.id);
-      }
+    //if it's an "-" operator and before it another operator, then make nothing,
+    //otherwise - make replacement
+    if ( strLastChar == "-" && strPreLastChar.match(/[*+/.-]/) ) {
+
+      // do nothing, ignore it
+
+    } else {
+
+      operatorReplacement(this.id);
+
+    }
 
       //if expression consist of only one symbhol, the make replacement
       if (str.length == 1) {
@@ -78,6 +78,8 @@ $(document).ready(function () {
     }
 
 });
+
+
 
   // "=" button pressed
   $( '#res' ).click(function() {
