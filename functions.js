@@ -6,10 +6,10 @@ function insertValues(id) {
 
 }
 
-function checkResultKeyPressed(flag) {
+function checkResultButtonPressed(flag) {
 
-  //function gets current flag's value. if it true than "=" was pressed before;
-  // if "=" was pressed before, than clear the field
+  //function gets current flag's value. if it true then "=" was pressed before;
+  // if "=" was pressed before, then clear the field
   if (res_flag == true) {
     $('#display').val('');
 
@@ -30,7 +30,6 @@ function operatorSelectedIndicator() {
 
 }
 
-
 function operatorUnselectedIndicator() {
 
   //when number button pressed, this function returns fuctionality to operator
@@ -42,10 +41,15 @@ function operatorUnselectedIndicator() {
 
 function operatorsErrorsManagingAndCalculation(str) {
 
-  //if the last or the first chars an operators (except "-" in 2nd case), than
-  //through Error. Otherwise - convert string to expression and calculate it
+  //if the last or the first chars an operators (except "-" in 2nd case) or
+  //division by 0 or incorrect number with many nulls at the beginning (002 etc)
+  //then through Error. Otherwise - convert string to expression and calculate it
   if (!str.charAt(str.length-1).match(/[0-9]/) ||
-    !str.charAt(0).match(/[-0-9]/) ) {
+      !str.charAt(0).match(/[-0-9]/) ||
+      str.match(/\/[0]$/) ||
+      str.match(/\/[0][*+-]/) ||
+      str.match(/^0[0-9]/) ||
+      str.match(/[*+/-]0[0-9]/) ) {
 
       $('#display').val('Error');
 
@@ -55,16 +59,20 @@ function operatorsErrorsManagingAndCalculation(str) {
     if (str.match(/[-]{2,}/)) {
       str = str.replace("--","+");
     }
-
+  //calculate string as a js code (expression)
     expr = eval(str);
     $('#display').val(expr);
 
   }
 }
 
+
 function operatorReplacement(id) {
 
   str = $('#display').val();
+  //if operator button pressed, and the other operator button was pressed after it
+  //then replace older one with the new one (to prevent multiple operators one
+  //after another)
   $('#display').val(str.slice(0, -1)+$('#'+id).val());
 
 }

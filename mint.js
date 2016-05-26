@@ -17,11 +17,11 @@ $(document).ready(function () {
     sub_flag = false;
   });
 
-  // "0-9" key pressed
+  // "0-9" button pressed
   $( '.calc-but' ).click(function() {
 
     //check status of "=" button (was it pressed before?)
-    checkResultKeyPressed(res_flag);
+    checkResultButtonPressed(res_flag);
     insertValues(this.id);
 
     //return funcionality to operator buttons
@@ -32,98 +32,54 @@ $(document).ready(function () {
 
   });
 
-//   // "+","-","*","/","." key pressed
-//   $( '.oper-but' ).click(function() {
-//
-//   if (oper_flag == false) {
-//
-//     //disable operator buttons funcionality
-//     operatorSelectedIndicator();
-//
-//     //check status of "=" button (was it pressed before?)
-//     checkResultKeyPressed(res_flag);
-//     insertValues(this.id);
-//
-//     if (this.value == '-'){
-//     sub_flag = true;
-//     }
-//
-//   } else {
-//
-//     if (this.value == '-' && sub_flag == true) {
-//
-//     insertValues(this.id);
-//     // sub_flag=true;
-//
-//
-//   } else if (sub_flag == true) {
-//
-//     insertValues(this.id);
-//     sub_flag=false;
-//
-//
-//   } else if (oper_flag == true && sub_flag == false){
-//       operatorReplacement(this.id);
-//     }
-//
-// }
-//
-//   });
+  // "+","-","*","/","." button pressed
+  $( '.oper-but' ).click(function() {
 
+    if (oper_flag == false) {
 
-$( '.oper-but' ).click(function() {
+      //disable operator buttons funcionality
+      operatorSelectedIndicator();
 
-  if (oper_flag == false) {
+      //check status of "=" button (was it pressed before?)
+      checkResultButtonPressed(res_flag);
 
-    operatorSelectedIndicator();
-    checkResultKeyPressed(res_flag);
-    insertValues(this.id);
+      insertValues(this.id);
 
-    if (this.value == '-'){
+      //if it "-" operator set sub_flag to true, otherwise set it to false
+      if (this.value == '-'){
         sub_flag = true;
       } else {
         sub_flag = false;
       }
 
+    } else {
 
-  } else {
+      str = $('#display').val();
+      reg = /[0-9]/;
 
-    str = $('#display').val();
+      //if it's "-" operator after another operator or in the beginning of the
+      //string then insert it
+      if (this.value == '-' &&
+      str.charAt(str.length-2).match(reg) &&
+      !str.charAt(str.length-1).match(reg) ) {
 
-    if (this.value == '-' &&  str.charAt(str.length-2).match(/[0-9]/) &&
-    !str.charAt(str.length-1).match(/[0-9]/)   ) {
+        insertValues(this.id);
+      }
 
-    insertValues(this.id);
+      //if it's not an "=" operator and "-" wasn't pressed, then make replacement
+      if (this.value != '-' && sub_flag != true) {
+        operatorReplacement(this.id);
+      }
+
+      //if expression consist of only one symbhol, the make replacement
+      if (str.length == 1) {
+        operatorReplacement(this.id);
+      }
     }
-
-
-    if (this.value != '-' && sub_flag != true) {
-      console.log(sub_flag);
-      operatorReplacement(this.id);
-    }
-
-    if (str.length == 1) {
-      operatorReplacement(this.id);
-    }
-
-    // if (this.value = '-' && sub_flag == false) {
-    //   operatorReplacement(this.id);
-    // }
-
-  }
 
 });
 
-
-
-
-
-
-
-
-
-
-  // "=" key pressed
+  // "=" button pressed
   $( '#res' ).click(function() {
 
   exprStr = $('#display').val();
