@@ -2,6 +2,18 @@ body {
   background-color: #364242;
 
 }
+
+.calc-form {
+  width: 225px;
+  height: 305px;
+  padding: 15px 10px;
+  margin: 15% auto;
+  background: #256B6B;
+  border: 2px solid #364242;
+  border-radius: 10px;
+  box-shadow: 0 0 150px #009595;
+  }
+
 input {
   font: bold 18px Arial;
   color: #364242;
@@ -18,17 +30,6 @@ input {
   margin-bottom: 10px;
 }
 
-form {
-  width: 225px;
-  height: 305px;
-  padding: 15px 10px;
-  background: #256B6B;
-  margin: 15% auto;
-  border: 2px solid #364242;
-  border-radius: 10px;
-  box-shadow: 0 0 150px #009595;
-}
-
 .operators {
   color: #364242;
   float: right;
@@ -43,11 +44,6 @@ div.operators > input {
   text-align: center;
   border: 2px solid #364242;
   border-radius: 5px;
-}
-
-div.operators > input {
-
-  background-color: green;
 }
 
 .numbers {

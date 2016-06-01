@@ -23,27 +23,30 @@ $(document).ready(function () {
   $( '.calc-but' ).click(function() {
 
     //check status of "=" button (was it pressed before?)
-    checkResultButtonPressed(res_flag);
+    res_flag = checkResultButtonPressed(res_flag);
+
     num_count++;
     insertValues(this.id, num_count);
 
     //return funcionality to operator buttons
-    operatorUnselectedIndicator();
+    oper_flag = operatorUnselectedIndicator();
 
   });
 
   // "+","-","*","/","." button pressed
   $( '.oper-but' ).click(function() {
 
+    //set res_flag to false to allow the calculation to continue
+    res_flag = false;
 
-
-    if (oper_flag == false) {
+    if (oper_flag === false) {
 
       //disable operator buttons funcionality
-      operatorSelectedIndicator();
+      oper_flag = operatorSelectedIndicator();
 
       //check status of "=" button (was it pressed before?)
-      checkResultButtonPressed(res_flag);
+      //res_flag = checkResultButtonPressed(res_flag);
+
       num_count++;
       insertValues(this.id, num_count);
 
@@ -57,18 +60,16 @@ $(document).ready(function () {
 
       //if it's "-" operator after another operator or in the beginning of the
       //string then insert it
-      if (this.value == '-' &&
+      if (this.value === '-' &&
       strPreLastChar.match(regNumMatch) &&
       !strLastChar.match(regNumMatch) ) {
-
-        num_count++;
-        insertValues(this.id, num_count);
-
+      num_count++;
+      insertValues(this.id, num_count);
       }
 
     //if it's an "-" operator and before it another operator, then make nothing,
     //otherwise - make replacement
-    if ( strLastChar == "-" && strPreLastChar.match(/[*+/.-]/) ) {
+    if ( strLastChar === "-" && strPreLastChar.match(/[*+/.-]/) ) {
 
       // do nothing, ignore it
 

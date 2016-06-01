@@ -18,13 +18,19 @@ function checkResultButtonPressed(flag) {
 
   //function gets current flag's value. if it true then "=" was pressed before;
   // if "=" was pressed before, then clear the field
-  if (res_flag == true) {
+  if (flag === true) {
+
+
     $('#display').val('');
 
     //set and return flag to false again to prevent wrong field clearing
-    return res_flag = false;
+    return flag = false;
 
-   }
+  } else {
+
+    return flag = false;
+
+  }
 }
 
 function operatorSelectedIndicator() {
@@ -32,7 +38,7 @@ function operatorSelectedIndicator() {
   //when operator button pressed, this function temporarily disable operator buttons
   //by adding a new class and remove previous until number buttons is pressed
 
-  $('input.oper-but').addClass('tmp-class');
+  $('input.oper-but').addClass('disabled-class');
   $('input').removeClass('oper-but');
   return oper_flag = true;
 
@@ -43,8 +49,8 @@ function operatorUnselectedIndicator() {
   //when number button pressed, this function returns fuctionality to operator
   //buttons
 
-  $('input.tmp-class').addClass('oper-but');
-  $('input').removeClass('tmp-class');
+  $('input.disabled-class').addClass('oper-but');
+  $('input').removeClass('disabled-class');
   return oper_flag = false;
 }
 
@@ -83,26 +89,21 @@ function operatorsErrorsManagingAndCalculation(str) {
     }
 
   // if answer length is to big - throw the exception, otherwise - display it
-    if (exprStr.length>15) {
 
-      $('#display').val('Overlimit number');
+  var displayValue = ( exprStr.length > 15) ? 'Overlimit number' : exprStr;
+  $('#display').val(displayValue);
 
-    } else {
-
-    $('#display').val(exprStr);
-
-  }
   }
 }
 
-
 function operatorReplacement(id) {
 
-  var str = $('#display').val();
+  var displayBlock = $('#display');
+  var str = displayBlock.val();
 
   //if operator button pressed, and the other operator button was pressed after it
   //then replace older one with the new one (to prevent multiple operators one
   //after another)
-  $('#display').val(str.slice(0, -1)+$('#'+id).val());
+  displayBlock.val(str.slice( 0, -1 ) + $( '#' + id ).val());
 
 }
